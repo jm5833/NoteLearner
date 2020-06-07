@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+    register here
     <form method="POST" action="">
+        {{ form.username.label }}
+        {{ form.username }}
+        {{ form.email.label }}
+        {{ form.email }}
+        {{ form.password.label }}
+        {{ form.password }}
+        {{ form.passwordc.label }}
+        {{ form.passwordc }}
+        {{ form.register }}
     </form> 
 {% endblock %} 
