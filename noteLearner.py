@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'bac33467956c034b85718b84bbde214b'
@@ -14,4 +14,5 @@ def register():
 
 @app.route('/login')
 def login():
-    return 'login page'
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)

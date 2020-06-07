@@ -1,4 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+    login here 
+    <form method="POST" action="">
+        {{ form.email.label }}
+        {{ form.email }}
+        {{ form.password.label }}
+        {{ form.password }}
 
+        {{ form.login }}
 {% endblock %} 
