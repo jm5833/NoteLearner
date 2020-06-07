@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<head>
+    {% if title %}
+        <title> NoteLearner - {{title}}</title>
+    {% else %}
+        <title> NoteLearner - untitled </title>
+    {% endif %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
