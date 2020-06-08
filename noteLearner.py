@@ -22,7 +22,7 @@ class User(db.Model):
 #site routes 
 @app.route('/')
 def home():
-    return 'hello world'
+    return render_template('home.html', title='Home')
 
 @app.route('/register', methods=['GET','POST'])
 def register():
