@@ -1,5 +1,6 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy 
+from flask import Flask, render_template, flash, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
@@ -23,12 +24,32 @@ class User(db.Model):
 def home():
     return 'hello world'
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        
+        #create the bcrypt variable
+        bcrypt = Bcrypt()
+        #obtain the values submitted into the form
+        passhash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        username = form.username.data
+        email = form.email.data
+        #create the user object to add into the db
+        user = User(username=username, email=email, password=passhash)
+        #add the user
+        db.session.add(user)
+        db.session.commit()
+        #redirect the user back to the home page after logging in 
+        
+        flash(f'Account created for {form.username.data}')
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/login')
 def login():
     form = LoginForm()
     return render_template('login.html', title='Login', form=form)
+
+if __name__ == '__main__':
+    app.run(debug=True)
